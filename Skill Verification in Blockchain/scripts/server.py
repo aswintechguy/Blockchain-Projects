@@ -229,8 +229,3 @@ def logout():
 def main():
     app.run(debug=True)
 
-# font color
-# Modification in PPT(diagrams, future works) 
-# github
-# Final Video
-
