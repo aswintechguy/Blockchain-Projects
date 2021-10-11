@@ -1,0 +1,208 @@
+<!-- <html>
+
+<head>
+    <center>
+        <h1>Received Requests</h1>
+    </center>
+    <form action='/profile' name='home'>
+        <input type="submit" value="Home" name="submit"> <br>
+    </form>
+</head>
+
+<body>
+    <div>
+        <form action='/validate' method='post' name='validate'>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Index</th>
+                        <th>Requester Name</th>
+                        <th>Skill</th>
+                        <th>Proficiency</th>
+                        <th>Learning ID</th>
+                        <th>Project ID</th>
+                        <th>Date</th>
+                        <th>Verdict</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for row in data %}
+                    <tr>
+                        <td><input type='radio' name='index' value={{row[0]}}></td> 
+                       
+                        <td>{{row[1]}}</td>
+                        <td>{{row[2]}}</td>
+                        <td>{{row[3]}}</td>
+                        <td>{{row[4]}}</td>
+                        <td>{{row[5]}}</td>
+                        <td>{{row[6]}}</td>
+                        <td>{{row[7]}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            Verdict: <input type='text' name='verdict'> <br>
+            <input type="submit" value="Send" name="submit"> <br>
+        </form>
+    </div>
+</body>
+
+</html> -->
+<html>
+    <head>
+      <title>Profile Page</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/receivedrequests.css') }}">
+
+      <!-- jQuery library -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+      <!-- Latest compiled JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </head>
+<!-- Latest compiled and minified CSS -->
+
+    <style>
+      body {
+        background-image: url('https://wallpapercave.com/wp/wp8283604.jpg');
+      }
+    
+      .main-body {
+        padding: 15px;
+        background-image: url('https://wallpapercave.com/wp/wp8283604.jpg');
+      }
+    </style>>
+
+    <body>
+      <div class="container">
+        <div class="main-body">
+         
+          <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+              <span class="sr-only"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            
+            <!-- <li><a href="/profile" >Profile</a></li> -->
+          </div>
+          <div class="collapse navbar-collapse" id="example-navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="/profile">Profile</a></li>
+            </ul>
+            <ul class="nav navbar-nav">
+              <li><a href="/profile" >Sent Requests</a></li>
+            </ul>
+            <ul class="nav navbar-nav">
+              <a href="/receivedrequests" class="navbar-brand">Received Requests</a>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Manage<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/logout">Log out</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+         
+          <!-- /Breadcrumb -->
+
+          <div class="row gutters-sm">
+          <div class="col-md-8">
+          <div class="row gutters-sm">
+          <div class="col-md-8">
+
+          <form action='/validate' method='post' name='validate'>
+            <!-- loop starts -->
+            {% for row in data %}
+              <div class="card mb-3">
+              <div class="card-body">
+              
+                    <input type='radio' name='index' value={{row[0]}}><br><br>
+                    <small>
+                      <span class="badge badge-secondary">{{row[3]}}</span>
+                      <span class="badge badge-secondary">{{row[4]}}</span>
+                      <span class="badge badge-secondary">{{row[5]}}</span>
+                      <span class="badge badge-secondary">{{row[6]}}</span>
+                    </small>
+                    <br>
+
+                    <table>
+                      <tr>
+                        <td>Requester Name:</td>
+                        <td>
+                          <center><small>{{row[1]}}<br></small></center>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Skill ID:</td>
+                        <td>
+                          <center><small>{{row[2]}}<br></small></center>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Proficiency:</td>
+                        <td>
+                          <center><small>{{row[7]}}<br></small></center>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Courses:</td>
+                        <td>
+                          <center><small>{{row[8]}}<br></small></center>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Projects:</td>
+                        <td>
+                          <center><small>{{row[9]}}<br></small></center>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Date:</td>
+                        <td>
+                          <center><small>{{row[10]}}<br></small></center>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Status:</td>
+                        <td>
+                          <center><small>{{row[11]}}<br></small></center>
+                        </td>
+                      </tr>
+                    </table>
+                  
+                    <!-- <div class="progress  mb-3">
+                      <div id = 'progressBar' class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                      <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+                      <script> $("#progressBar").css("width","300"); </script>
+                      </div>
+                    </div> -->
+              </div>
+              
+
+
+              </div>
+            {% endfor %}
+            <!-- loop ends -->
+            <button type="submit" class="btn btn-success px-2" value="1" name="verdict">Accept</button>
+            <button type="submit" class="btn btn-danger px-2" value="0" name="verdict">Reject</button>
+          
+          </form>
+          </div>
+
+          </div>
+          
+          </div>
+          </div>
+        </div>
+      </div>
+    </body>
+</html>
