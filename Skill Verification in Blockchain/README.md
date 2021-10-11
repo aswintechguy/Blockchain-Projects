@@ -13,10 +13,24 @@ Design a skill-verification system that can help reduce the time spent on conduc
 
 Download and install node.js for windows: https://nodejs.org/en/download/
 
-> npm install --global yarn
-> yarn global add ganache-cli (or) npm install -g ganache-cli
-> pip install -r requirments.txt
+```
+npm install --global yarn
+yarn global add ganache-cli (or) npm install -g ganache-cli
+pip install -r requirments.txt
+```
 
+## Commands to run script
+
+Open a terminal
+```
+ganache-cli --deterministic
+```
+
+Open a new terminal
+```
+brownie compile
+brownie run ./scripts/server.py
+```
 
 ## Libraries
 
@@ -32,15 +46,5 @@ Download and install node.js for windows: https://nodejs.org/en/download/
 - Python
 - Ethereum Smart Contract
 
-## Commands
-
-Open a terminal
-
-> ganache-cli --deterministic
-
-Open a new terminal
-
-> brownie compile
-> brownie run ./scripts/server.py
 
 
