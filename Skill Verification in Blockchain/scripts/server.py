@@ -26,10 +26,20 @@ def profile():
     temp_emp=cur.fetchall()
     name, email, work_exp = temp_emp[0]
     emp_id = session['empId']
+    # loading skills from database for the dropdown option
+    cur=conn.cursor()
+    cur.execute('SELECT skillID, skill1 FROM Skills') 
+    skillList=cur.fetchall()
+    cur=conn.cursor()
+    cur.execute('SELECT ProjectID, ProjectName FROM Projects') 
+    ProjectList=cur.fetchall()
+    cur=conn.cursor()
+    cur.execute('SELECT CourseID, CourseName FROM LearningCourses') 
+    LearningList=cur.fetchall()
     data = []
     if skill:        
         for sk, p, learn, proj in zip(skill, proficiency, learning_id, project_id):
-            query_sk = "SELECT skillID, skill1, skill2, Skill3, skill4 FROM Skills where skillID=%s" % (
+            query_sk = "SELECT skillID, skill1 FROM Skills where skillID=%s" % (
                 sk)
             cur = conn.cursor()
             cur.execute(query_sk)
@@ -46,7 +56,6 @@ def profile():
             cur.execute("SELECT ProjectName FROM Projects where ProjectID=?",[proj])
             temp = cur.fetchall()[0][0]
             data[-1].append(temp)
-
         conn.close()
     return render_template('profile.html', **locals())
 
@@ -62,6 +71,16 @@ def register_user():
     cur=conn.cursor()
     cur.execute("INSERT INTO Employee (EmpId,EmpName,Password,EmailId,WorkExp) values(?,?,?,?,?)", [emp_id,name,password,email,work_exp])
     conn.commit()
+    # loading skills from database for the dropdown option
+    cur=conn.cursor()
+    cur.execute('SELECT skillID, skill1 FROM Skills') 
+    skillList=cur.fetchall()
+    cur=conn.cursor()
+    cur.execute('SELECT ProjectID, ProjectName FROM Projects') 
+    ProjectList=cur.fetchall()
+    cur=conn.cursor()
+    cur.execute('SELECT CourseID, CourseName FROM LearningCourses') 
+    LearningList=cur.fetchall()
     cur.close()
     conn.close()
     skillVerify.register(emp_id, {"from": account})
@@ -86,12 +105,20 @@ def login_user():
             cur.execute("SELECT  EmpName,EmailId, WorkExp FROM Employee where EmpID=?",[session['empId']])
             temp_emp=cur.fetchall()
             name, email, work_exp = temp_emp[0]
-
+            cur=conn.cursor()
+            cur.execute('SELECT skillID, skill1 FROM Skills') 
+            skillList=cur.fetchall()
+            cur=conn.cursor()
+            cur.execute('SELECT ProjectID, ProjectName FROM Projects') 
+            ProjectList=cur.fetchall()
+            cur=conn.cursor()
+            cur.execute('SELECT CourseID, CourseName FROM LearningCourses') 
+            LearningList=cur.fetchall()
             skill, proficiency, learning_id, project_id = skillVerify.retrieve(
                 session['empId'])
             if skill:
                 for sk, p, learn, proj in zip(skill, proficiency, learning_id, project_id):
-                    query = "SELECT skillID, skill1, skill2, Skill3, skill4 FROM Skills where skillID=%s" % (
+                    query = "SELECT skillID, skill1 FROM Skills where skillID=%s" % (
                         sk)
                     cur = conn.cursor()
                     cur.execute(query)
@@ -130,12 +157,13 @@ def sentrequests():
                 session['empId'], i)
             temp.append(skill_id)
             
-            query_sk = "SELECT skill1, skill2, Skill3, skill4 FROM Skills where skillID=%s" % (
+            query_sk = "SELECT skill1 FROM Skills where skillID=%s" % (
                 skill_id)
             cur = conn.cursor()
             cur.execute(query_sk)
             temp_sk = cur.fetchall()
-            temp.extend(list(temp_sk[0]))
+            # temp.extend(list(temp_sk[0]))
+            temp.append(temp_sk[0][0])
 
             temp.append(proficiency)
             
@@ -175,12 +203,12 @@ def receivedrequests():
             temp.append(name)
             temp.append(skill_id)
 
-            query_sk = "SELECT skill1, skill2, Skill3, skill4 FROM Skills where skillID=%s" % (
+            query_sk = "SELECT skill1 FROM Skills where skillID=%s" % (
                 skill_id)
             cur = conn.cursor()
             cur.execute(query_sk)
             temp_sk = cur.fetchall()
-            temp.extend(list(temp_sk[0]))
+            temp.append(temp_sk[0][0])
 
             temp.append(proficiency)
             cur = conn.cursor()
@@ -228,4 +256,9 @@ def logout():
 
 def main():
     app.run(debug=True)
+
+# font color
+# Modification in PPT(diagrams, future works) 
+# github
+# Final Video
 

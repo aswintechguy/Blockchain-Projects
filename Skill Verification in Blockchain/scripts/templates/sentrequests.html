@@ -63,6 +63,35 @@
         padding: 15px;
         background-image: url('https://wallpapercave.com/wp/wp8283604.jpg');
       }
+
+      *{
+          margin: 0;
+          padding: 0;
+        }
+        .rate {
+            float: left;
+            height: 46px;
+            padding: 0 10px;
+        }
+        .rate:not(:checked) > input {
+            position:absolute;
+            left:-9999px;
+        }
+        .rate:not(:checked) > label {
+            float:right;
+            width:1em;
+            overflow:hidden;
+            white-space:nowrap;
+            cursor:pointer;
+            font-size:30px;
+            color:#ccc;
+        }
+        .rate:not(:checked) > label:before {
+            content: '★ ';
+        }
+        .rate > input:checked ~ label {
+            color: #ffc700;    
+        }
     </style>>
 
     <body>
@@ -115,37 +144,66 @@
                 <!-- <h4 class="d-flex align-items-center mb-3">Sent Requests</h4> -->
                 <!-- loop starts --> 
                 
-                  <small>
-                  <span class="badge badge-secondary">{{row[1]}}</span>
-                  <span class="badge badge-secondary">{{row[2]}}</span>
-                  <span class="badge badge-secondary">{{row[3]}}</span>
-                  <span class="badge badge-secondary">{{row[4]}}</span>
-                  </small>
-                  <br><br>
+                
                   <table>
+                      <tr>
+                        <td>
+                          <h3>
+                          <span class="label label-info">{{row[1]}}</span>
+                          </h3>
+                        </td>
+                        <td>
+                          <div class="rate">
+                            {% for i in range(4) %}
+                            {% if 4-row[2] == i %}
+                            <input type="radio" id="star4" name="{{row[0]}}" checked />
+                            <label for="star3" title="text">3 stars</label>
+                            {% else %}
+                            <input type="radio" id="star4" name="{{row[0]}}" />
+                            <label for="star3" title="text">3 stars</label>
+                            {% endif %}
+                            {% endfor %}
+                          </div>
+                        </td>
+                      </tr>
+                      <tr><td><br><br></td></tr>
                       <tr>
                         <td>Skill ID:</td>
                         <td><center><small>{{row[0]}}<br></small></center></td>
                       </tr>
-                      <tr>
+                      <!-- <tr>
                         <td>Proficiency:</td>
-                        <td><center><small>{{row[5]}}<br></small></center></td>
-                      </tr>
+                        <td>
+                          <small>
+                          <div class="rate">
+                            {% for i in range(4) %}
+                              {% if 4-row[2] == i %}
+                              <input type="radio" id="star4" name="{{row[0]}}" checked/>
+                              <label for="star3" title="text">3 stars</label>
+                              {% else %}
+                              <input type="radio" id="star4" name="{{row[0]}}"/>
+                              <label for="star3" title="text">3 stars</label>
+                              {% endif %}
+                            {% endfor %}
+                          </div>
+                          </small>
+                        </td>
+                      </tr> -->
                       <tr>
                         <td>Courses:</td>
-                        <td><center><small>{{row[6]}}<br></small></center></td>
+                        <td><center><small>{{row[3]}}<br></small></center></td>
                       </tr>
                       <tr>
                         <td>Projects:</td>
-                        <td><center><small>{{row[7]}}<br></small></center></td>
+                        <td><center><small>{{row[4]}}<br></small></center></td>
                       </tr>
                       <tr>
                         <td>Date:</td>
-                        <td><center><small>{{row[8]}}<br></small></center></td>
+                        <td><center><small>{{row[5]}}<br></small></center></td>
                       </tr>
                       <tr>
                         <td>Verdict:</td>
-                        <td><center><small>{{row[9]}}<br></small></center></td>
+                        <td><center><small>{{row[6]}}<br></small></center></td>
                       </tr>
                   </table>
                   <!-- <div class="progress  mb-3">
