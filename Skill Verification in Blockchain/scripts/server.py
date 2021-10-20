@@ -246,7 +246,7 @@ def validate_request():
     index, verdict = request.form['index'], request.form['verdict']
     skillVerify.validateRequest(
         int(verdict), session['empId'], index, {"from": account})
-    return profile()
+    return redirect(url_for('receivedrequests'))
 
 @app.route('/logout')
 def logout():
